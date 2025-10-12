@@ -6,3 +6,5 @@ PyPDF2
 python-pptx
 sentence-transformers
 numpy
+python-multipart
+python-dotenv
