@@ -10,7 +10,7 @@
 
 **🎯 An intelligent AI-powered study assistant that transforms learning materials into interactive educational experiences**
 
-[Live Demo](#) · [Report Bug](https://github.com/arun-248/AI-Study-Buddy/issues) · [Request Feature](https://github.com/arun-248/AI-Study-Buddy/issues)
+[Live Demo](https://aistudybuddybyarun.vercel.app/)
 
 </div>
 
