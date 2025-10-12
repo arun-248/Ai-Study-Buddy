@@ -300,7 +300,7 @@ export default function About() {
             <a href="/dashboard" className="bg-white text-purple-600 px-8 py-3 rounded-full font-bold hover:shadow-xl transition-all hover:scale-105">
               Try Live Demo
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="bg-white/20 border-2 border-white px-8 py-3 rounded-full font-bold hover:bg-white/30 transition-all hover:scale-105">
+            <a href="https://github.com/arun-248/AI-Study-Buddy.git" target="_blank" rel="noopener noreferrer" className="bg-white/20 border-2 border-white px-8 py-3 rounded-full font-bold hover:bg-white/30 transition-all hover:scale-105">
               View Source Code
             </a>
           </div>
