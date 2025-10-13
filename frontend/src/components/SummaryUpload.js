@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Upload, Brain, BookOpen, Map, MessageCircleQuestion, ListChecks, Sparkles, Download, CheckCircle, X, Trophy, CreditCard, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // ✅ USE ENVIRONMENT VARIABLE FOR API URL
-const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+const API_URL = "https://ai-study-buddy-rw6z.onrender.com";
 
 export default function SummaryUpload() {
   const [file, setFile] = useState(null);

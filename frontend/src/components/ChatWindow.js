@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
+const API_URL = "https://ai-study-buddy-rw6z.onrender.com";
+
 export default function ChatWindow() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -13,7 +15,7 @@ export default function ChatWindow() {
   useEffect(() => {
     async function loadDocs() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/docs");
+        const res = await fetch(`${API_URL}/api/docs`);
         const data = await res.json();
         if (Array.isArray(data)) setDocs(data);
       } catch (err) {
@@ -43,7 +45,7 @@ export default function ChatWindow() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/query", {
+      const res = await fetch(`${API_URL}/api/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
