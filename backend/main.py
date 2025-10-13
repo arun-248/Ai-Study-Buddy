@@ -1,7 +1,6 @@
 import os
 import json
 import requests
-import numpy as np
 import re
 from dotenv import load_dotenv
 from datetime import datetime
@@ -11,12 +10,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from PyPDF2 import PdfReader
 from pptx import Presentation
-from sentence_transformers import SentenceTransformer
 
 # -----------------------
 # Configuration & Setup
 # -----------------------
-app = FastAPI(title="AI Study Buddy Backend (Final Stable Build)")
+app = FastAPI(title="AI Study Buddy Backend (Optimized Build)")
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,10 +34,6 @@ GEMINI_TEXT_URL = (
 # Store documents and feedbacks in memory
 DOCUMENTS = {}
 FEEDBACKS = []
-
-# Local sentence transformer for fallback
-EMBED_MODEL_NAME = "all-MiniLM-L6-v2"
-embedder = SentenceTransformer(EMBED_MODEL_NAME)
 
 # -----------------------
 # Helper Functions
@@ -84,16 +78,25 @@ def split_sentences(text: str) -> List[str]:
     return sents[:1000]
 
 
-def extractive_summary(text: str, n: int = 5) -> str:
-    """Local extractive summarizer using embeddings"""
+def simple_summary(text: str, n: int = 5) -> str:
+    """Simple extractive summarizer without ML dependencies"""
     sents = split_sentences(text)
     if len(sents) <= n:
         return "\n".join(sents)
-    emb = embedder.encode(sents, convert_to_numpy=True)
-    centroid = np.mean(emb, axis=0)
-    sims = np.dot(emb, centroid) / (np.linalg.norm(emb, axis=1) * np.linalg.norm(centroid) + 1e-9)
-    top = np.argsort(-sims)[:n]
-    return "\n".join([sents[i] for i in sorted(top)])
+    
+    # Simple scoring based on position and length
+    scores = []
+    for i, sent in enumerate(sents):
+        # Prefer sentences at beginning and end
+        position_score = 1.0 if i < 3 or i > len(sents) - 3 else 0.5
+        # Prefer longer sentences (more information)
+        length_score = min(len(sent) / 100, 1.0)
+        scores.append(position_score + length_score)
+    
+    # Get top N sentences by score
+    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:n]
+    # Return in original order
+    return "\n".join([sents[i] for i in sorted(top_indices)])
 
 
 def call_gemini(prompt: str) -> str:
@@ -240,7 +243,7 @@ def generate_local_fallback(style_key: str, text: str) -> str:
         return "**Simple Summary:**\n\n" + "\n".join([f"• {s}" for s in summary_sents])
     
     elif style_key == "detailed":
-        summary = extractive_summary(text, 10)
+        summary = simple_summary(text, 10)
         return f"**Detailed Summary:**\n\n{summary}\n\n*Note: This is a local fallback. For better results, configure Gemini API.*"
     
     elif style_key == "concept":
@@ -265,7 +268,7 @@ def generate_local_fallback(style_key: str, text: str) -> str:
         return "**Key Takeaways:**\n\n" + "\n".join([f"{i+1}. {s}" for i, s in enumerate(key_sents)])
     
     else:
-        return extractive_summary(text, 6)
+        return simple_summary(text, 6)
 
 
 def generate_concise_study_plan(topic: str, days: int) -> str:
@@ -366,7 +369,7 @@ class FeedbackRequest(BaseModel):
 # -----------------------
 @app.get("/")
 def root():
-    return {"status": "AI Study Buddy Backend Running ✔️"}
+    return {"status": "AI Study Buddy Backend Running ✔️", "version": "optimized"}
 
 
 @app.post("/api/upload")
