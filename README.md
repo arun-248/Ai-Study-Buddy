@@ -10,7 +10,7 @@
 
 **🎯 An intelligent AI-powered study assistant that transforms learning materials into interactive educational experiences**
 
-[Live Demo](#) · [Report Bug](https://github.com/arun-248/AI-Study-Buddy/issues) · [Request Feature](https://github.com/arun-248/AI-Study-Buddy/issues)
+[Live Demo](https://aistudybuddybyarun.vercel.app/)
 
 </div>
 
@@ -66,27 +66,23 @@ Transform your study materials into the format that works best for you:
 ### 🏠 **Landing Page**
 *Modern, engaging homepage with feature highlights*
 
-![Landing Page](https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=Landing+Page)
+![Landing Page](https://github.com/arun-248/Ai-Study-Buddy/blob/main/Landing%20Page.png)
 
 ### 📄 **Notes Summarizer**
 *Upload documents and generate summaries in 5 different styles*
 
-![Summarizer](https://via.placeholder.com/800x400/7C3AED/FFFFFF?text=Notes+Summarizer)
+![Summarizer](https://github.com/arun-248/Ai-Study-Buddy/blob/main/Notes%20Summarizer.png)
 
 ### 🧠 **AI Tutor Chat**
 *Interactive chat interface for asking questions about your materials*
 
-![AI Tutor](https://via.placeholder.com/800x400/EC4899/FFFFFF?text=AI+Tutor+Chat)
+![AI Tutor](https://github.com/arun-248/Ai-Study-Buddy/blob/main/AI%20Tutor%20Chat.png)
 
 ### 📅 **Study Planner**
 *AI-generated personalized study schedules with progress tracking*
 
-![Study Planner](https://via.placeholder.com/800x400/10B981/FFFFFF?text=Study+Planner)
+![Study Planner](https://github.com/arun-248/Ai-Study-Buddy/blob/main/Study%20Planner.png)
 
-### 🏆 **Quiz & Flashcards**
-*Test your knowledge with auto-generated quizzes and flashcards*
-
-![Quiz](https://via.placeholder.com/800x400/F59E0B/FFFFFF?text=Quiz+%26+Flashcards)
 
 </div>
 
@@ -156,226 +152,9 @@ Transform your study materials into the format that works best for you:
 - **npm** - Package management
 - **uvicorn** - ASGI server
 
----
-
-## 📦 Installation & Setup
-
-### **Prerequisites**
-- Python 3.8+
-- Node.js 16+
-- npm or yarn
-- Gemini API key ([Get one here](https://makersuite.google.com/app/apikey))
-
-### **Backend Setup**
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/arun-248/AI-Study-Buddy.git
-cd AI-Study-Buddy
-```
-
-2. **Create virtual environment**
-```bash
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# macOS/Linux
-source venv/bin/activate
-```
-
-3. **Install dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Create `.env` file in backend folder**
-```env
-GEMINI_API_KEY=your_actual_gemini_api_key_here
-```
-
-5. **Run the backend server**
-```bash
-uvicorn main:app --reload
-```
-
-Backend will run at `http://127.0.0.1:8000`
-
-### **Frontend Setup**
-
-1. **Navigate to frontend folder**
-```bash
-cd frontend
-```
-
-2. **Install dependencies**
-```bash
-npm install
-```
-
-3. **Start development server**
-```bash
-npm start
-```
-
-Frontend will run at `http://localhost:3000`
 
 ---
 
-## 🚀 Deployment Guide
-
-### **Deploy Backend (Render)**
-
-1. Push your code to GitHub
-2. Go to [Render.com](https://render.com) and sign in
-3. Click **"New +"** → **"Web Service"**
-4. Connect your GitHub repository
-5. Configure:
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
-6. Add Environment Variable:
-   - **Key:** `GEMINI_API_KEY`
-   - **Value:** Your actual Gemini API key
-7. Click **"Create Web Service"**
-
-### **Deploy Frontend (Vercel)**
-
-1. Push your code to GitHub
-2. Go to [Vercel.com](https://vercel.com) and sign in
-3. Click **"Add New"** → **"Project"**
-4. Import your GitHub repository
-5. Configure:
-   - **Framework Preset:** Create React App
-   - **Root Directory:** `frontend`
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `build`
-6. Add Environment Variable:
-   - **Key:** `REACT_APP_API_URL`
-   - **Value:** Your Render backend URL
-7. Click **"Deploy"**
-
-### **Update CORS in Backend**
-
-After deployment, update `main.py`:
-```python
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",  # Local development
-        "https://your-frontend.vercel.app",  # Your Vercel URL
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
----
-
-## 📚 API Documentation
-
-### **Base URL**
-```
-Local: http://127.0.0.1:8000
-Production: https://your-backend.onrender.com
-```
-
-### **Endpoints**
-
-#### **1. Upload Document**
-```http
-POST /api/upload
-Content-Type: multipart/form-data
-
-Body: file (PDF/PPTX/TXT)
-
-Response:
-{
-  "id": "doc_1",
-  "name": "example.pdf"
-}
-```
-
-#### **2. Generate Summary**
-```http
-POST /api/query
-Content-Type: application/json
-
-Body:
-{
-  "prompt": "Summarize this document",
-  "docs": ["example.pdf"],
-  "mode": "summarize",
-  "style": "simple"
-}
-
-Response:
-{
-  "answer": "Summary content...",
-  "sources": ["example.pdf"]
-}
-```
-
-#### **3. Generate Quiz**
-```http
-POST /api/quiz
-Content-Type: application/json
-
-Body:
-{
-  "text": "Content to generate quiz from",
-  "num_questions": 5
-}
-
-Response:
-{
-  "quiz": [
-    {
-      "question": "What is...?",
-      "options": ["A", "B", "C", "D"],
-      "answer": "A"
-    }
-  ]
-}
-```
-
-#### **4. Generate Flashcards**
-```http
-POST /api/flashcards
-Content-Type: application/json
-
-Body:
-{
-  "text": "Content to generate flashcards from",
-  "num_questions": 10
-}
-
-Response:
-{
-  "flashcards": [
-    {
-      "front": "Question or term",
-      "back": "Answer or definition"
-    }
-  ]
-}
-```
-
-#### **5. Get Uploaded Documents**
-```http
-GET /api/docs
-
-Response:
-[
-  {
-    "id": "doc_1",
-    "name": "example.pdf"
-  }
-]
-```
-
----
 
 ## 🎯 Usage Guide
 
