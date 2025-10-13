@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Upload, Brain, BookOpen, Map, MessageCircleQuestion, ListChecks, Sparkles, Download, CheckCircle, X, Trophy, CreditCard, ChevronLeft, ChevronRight } from 'lucide-react';
 
+// ✅ USE ENVIRONMENT VARIABLE FOR API URL
+const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+
 export default function SummaryUpload() {
   const [file, setFile] = useState(null);
   const [summary, setSummary] = useState("");
@@ -60,7 +63,8 @@ export default function SummaryUpload() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/upload", {
+      // ✅ FIXED: Use API_URL instead of hardcoded localhost
+      const res = await fetch(`${API_URL}/api/upload`, {
         method: "POST",
         body: formData,
       });
@@ -75,7 +79,7 @@ export default function SummaryUpload() {
       }
     } catch (err) {
       console.error(err);
-      alert("Error uploading file");
+      alert("Error uploading file: " + err.message);
       setLoading(false);
     }
   };
@@ -83,7 +87,8 @@ export default function SummaryUpload() {
   const generateSummary = async (docName, summaryStyle) => {
     setLoading(true);
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/query", {
+      // ✅ FIXED: Use API_URL instead of hardcoded localhost
+      const res = await fetch(`${API_URL}/api/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -123,7 +128,8 @@ export default function SummaryUpload() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/quiz", {
+      // ✅ FIXED: Use API_URL instead of hardcoded localhost
+      const res = await fetch(`${API_URL}/api/quiz`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: summary, num_questions: 5 }),
@@ -151,7 +157,8 @@ export default function SummaryUpload() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/flashcards", {
+      // ✅ FIXED: Use API_URL instead of hardcoded localhost
+      const res = await fetch(`${API_URL}/api/flashcards`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: summary, num_questions: 10 }),
