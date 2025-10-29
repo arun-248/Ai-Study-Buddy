@@ -27,7 +27,7 @@ export default function Footer() {
                 AI Study Buddy
               </div>
               <div className="text-xs text-white/90 font-semibold drop-shadow-md">
-                by Team IntelliLearn
+                by Arun Chinthalapally
               </div>
             </div>
           </div>

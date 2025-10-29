@@ -17,4 +17,5 @@ frontend/build/
 
 # IDE
 .vscode/
-.DS_Store
+.DS_Store"*.pdf" 
+"*.pdf" 
