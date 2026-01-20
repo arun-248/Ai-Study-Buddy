@@ -1,25 +1,34 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Landing from './pages/Landing';
 import Sidebar from "./components/Sidebar";
+
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Features from "./pages/Features";
+
 import SummaryUpload from "./components/SummaryUpload";
 import StudyPlanner from "./components/StudyPlanner";
 import ChatWindow from "./components/ChatWindow";
-import './App.css';
+
+import "./App.css";
 
 function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+        {/* Top Navbar */}
         <Navbar />
+
+        {/* Main layout */}
         <div className="flex flex-1 pt-16">
+          {/* Left Sidebar */}
           <Sidebar />
+
+          {/* Page content */}
           <main className="flex-1 p-6 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -32,6 +41,8 @@ function App() {
             </Routes>
           </main>
         </div>
+
+        {/* Footer */}
         <Footer />
       </div>
     </Router>
