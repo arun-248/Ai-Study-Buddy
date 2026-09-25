@@ -18,7 +18,7 @@
 
 ## 🌟 Project Highlights
 
-> **Transform Your Study Materials**: Upload PDFs, PowerPoints, or text files and get AI-powered summaries, quizzes, flashcards, and personalized study plans - all in one place.
+> **Transform Your Study Materials**: Upload PDFs, PowerPoints, or text files and get AI-powered summaries, quizzes, flashcards, and personalized study plans - all in one place..
 
 **🎯 What makes this special:**
 - **5 AI Summary Modes** - Adapts to different learning styles
